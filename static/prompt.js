@@ -1,6 +1,7 @@
 const promptForm = document.getElementById("prompt-form");
 const submitButton = document.getElementById("submit-button");
 const questionButton = document.getElementById("question-button");
+const qcmButton = document.getElementById("qcm-button");
 const messagesContainer = document.getElementById("messages-container");
 
 const appendHumanMessage = (message) => {
@@ -38,6 +39,15 @@ const handlePrompt = async (event) => {
     data.append("question", questionButton.dataset.question);
     delete questionButton.dataset.question;
     questionButton.classList.remove("hidden");
+    qcmButton.classList.remove("hidden");
+    submitButton.innerHTML = "Message";
+  }
+  else if (qcmButton.dataset.question !== undefined) {
+    url = "/answer";
+    data.append("question", qcmButton.dataset.question);
+    delete qcmButton.dataset.question;
+    qcmButton.classList.remove("hidden");
+    questionButton.classList.remove("hidden");
     submitButton.innerHTML = "Message";
   }
 
@@ -65,9 +75,44 @@ const handleQuestionClick = async (event) => {
 
     questionButton.dataset.question = question;
     questionButton.classList.add("hidden");
+    qcmButton.classList.add("hidden");
     submitButton.innerHTML = "Répondre à la question";
     return question;
   });
 };
 
+const handleQCMClick = async (event) => {
+  appendAIMessage(async () => {
+    const response = await fetch("/qcm", {
+      method: "GET",
+    });
+    const result = await response.json();
+    const question = result.answer;
+
+    qcmButton.dataset.question = question;
+    qcmButton.classList.add("hidden");
+    questionButton.classList.add("hidden");
+    submitButton.innerHTML = "Répondre à la question";
+    return question;
+  });
+};
+
+const toggleButton = document.getElementById('theme-toggle');
+let couleur = 0;
+toggleButton.addEventListener('click', () => {
+  if (couleur == 0) {
+    document.documentElement.style.setProperty('--main-background-color', 'grey');
+    document.documentElement.style.setProperty('--body-background-color', 'black');
+    document.documentElement.style.setProperty('--main-color', 'white');
+    document.documentElement.style.setProperty('--secondary-color', 'steelblue');
+  } else {
+    document.documentElement.style.setProperty('--main-background-color', 'white');
+    document.documentElement.style.setProperty('--body-background-color', 'gainsboro');
+    document.documentElement.style.setProperty('--main-color', 'black');
+    document.documentElement.style.setProperty('--secondary-color', 'paleturquoise');
+  }
+  if (couleur == 0) { couleur = 1; } else { couleur = 0; }
+});
+
 questionButton.addEventListener("click", handleQuestionClick);
+qcmButton.addEventListener("click", handleQCMClick);

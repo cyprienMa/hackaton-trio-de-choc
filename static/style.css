@@ -1,10 +1,10 @@
 :root {
-  --body-background-color: #f5f6f8;
-  --main-background-color: #ffffff;
-  --main-color: #2a303b;
+  --body-background-color: gainsboro;
+  --main-background-color: white;
+  --main-color: black;
   --max-body-width: 700px;
   --border-color: #cccccc;
-  --secondary-color: #fff6d3;
+  --secondary-color: paleturquoise;
   --loader-bullet-size: 6px;
 }
 
@@ -102,6 +102,7 @@ body {
   width: 80px;
   height: var(--loader-bullet-size);
 }
+
 .loader div {
   position: absolute;
   top: 0;
@@ -111,42 +112,52 @@ body {
   background-color: var(--main-color);
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
+
 .loader div:nth-child(1) {
   left: calc(var(--loader-bullet-size) * 0.5);
   animation: loader1 0.6s infinite;
 }
+
 .loader div:nth-child(2) {
   left: calc(var(--loader-bullet-size) * 0.5);
   animation: loader2 0.6s infinite;
 }
+
 .loader div:nth-child(3) {
   left: calc(var(--loader-bullet-size) * 2.5);
   animation: loader2 0.6s infinite;
 }
+
 .loader div:nth-child(4) {
   left: calc(var(--loader-bullet-size) * 4);
   animation: loader3 0.6s infinite;
 }
+
 @keyframes loader1 {
   0% {
     transform: scale(0);
   }
+
   100% {
     transform: scale(1);
   }
 }
+
 @keyframes loader3 {
   0% {
     transform: scale(1);
   }
+
   100% {
     transform: scale(0);
   }
 }
+
 @keyframes loader2 {
   0% {
     transform: translate(0, 0);
   }
+
   100% {
     transform: translate(calc(var(--loader-bullet-size) * 2), 0);
   }
