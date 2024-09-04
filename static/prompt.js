@@ -107,13 +107,14 @@ toggleButton.addEventListener('click', () => {
     document.documentElement.style.setProperty('--body-background-color', 'black');
     document.documentElement.style.setProperty('--main-color', 'white');
     document.documentElement.style.setProperty('--secondary-color', 'steelblue');
+    couleur = 1;
   } else {
     document.documentElement.style.setProperty('--main-background-color', 'white');
     document.documentElement.style.setProperty('--body-background-color', 'gainsboro');
     document.documentElement.style.setProperty('--main-color', 'black');
     document.documentElement.style.setProperty('--secondary-color', 'paleturquoise');
+    couleur = 0;
   }
-  if (couleur == 0) { couleur = 1; } else { couleur = 0; }
 });
 
 questionButton.addEventListener("click", handleQuestionClick);

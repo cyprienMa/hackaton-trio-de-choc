@@ -34,7 +34,7 @@ def qcm_question():
 @app.route('/answer', methods=['POST'])
 def qcm_reponse():
     question=request.form["prompt"]
-    response = ask_question_to_pdf([{"role":"user","content":question},{"role":"system","content":"Vérifie si cette réponse à la question précédente est correcte. Donne des explications."}])
+    response = ask_question_to_pdf([{"role":"user","content":question},{"role":"system","content":"Vérifie si cette réponse à la question précédente est correcte. Donne des explications. Attention : une réponse vide n'est pas correcte !"}])
     return {"answer":response}
 
 if __name__ == '__main__':

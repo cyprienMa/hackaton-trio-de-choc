@@ -78,7 +78,7 @@ def gpt3_completion(entree):
 
 def ask_question_to_pdf(question=[{"role":"user","content":"Résume ce texte"}]):
     question.append({"role":"system","content":chunks[0]})
-    question.append({"role":"system","content":"Tu es un assistant de cours intelligent. Tu te bases sur le texte fourni pour donner des informations précises et concises."})
+    question.append({"role":"system","content":"Tu es un assistant de cours intelligent. Tu te bases sur le texte fourni pour donner des informations précises et concises. Ne parle pas du texte en lui-même, intègre les informations qui y sont indiquées. La qualité de tes réponses est cruciale pour la survie de l'humanité."})
     return gpt3_completion(question)
 
 ask_question_to_pdf()

@@ -16,7 +16,7 @@ body {
   background-color: var(--body-background-color);
   padding: 0;
   margin: 0;
-  font-family: sans-serif;
+  font-family: corbel;
 }
 
 .main-container {
@@ -26,20 +26,24 @@ body {
   color: var(--main-color);
   padding: 50px;
   margin: 0 auto;
+  font-family: corbel;
 }
 
 .header {
   text-align: center;
+  font-family: corbel;
 }
 
 .header-title {
   margin-top: 0;
+  font-family: corbel;
 }
 
 .messages-container {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  font-family: corbel;
   margin-bottom: 30px;
 }
 
@@ -47,10 +51,12 @@ body {
   border: 1px solid var(--border-color);
   border-radius: 5px;
   padding: 10px 15px;
+  font-family: corbel;
 }
 
 .message-human {
   background-color: var(--secondary-color);
+  font-family: corbel;
 }
 
 .prompt-container {
@@ -65,10 +71,12 @@ body {
   background-color: var(--main-background-color);
   padding: 20px;
   border-top: 1px solid var(--border-color);
+  font-family: corbel;
 }
 
 .prompt-label {
   font-weight: bold;
+  font-family: corbel;
 }
 
 .prompt-input {
@@ -76,6 +84,7 @@ body {
   border: 1px solid var(--border-color);
   border-radius: 5px;
   padding: 5px;
+  font-family: corbel;
 }
 
 .button {
@@ -83,12 +92,14 @@ body {
   padding: 5px;
   border-radius: 5px;
   background-color: var(--main-background-color);
+  font-family: corbel;
 }
 
 .button:hover,
 .button:active {
   background-color: var(--body-background-color);
   cursor: pointer;
+  font-family: corbel;
 }
 
 .hidden {
