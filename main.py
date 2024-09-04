@@ -27,7 +27,7 @@ def course_question():
 
 @app.route('/qcm', methods=['GET'])
 def qcm_question():
-    question="Construis un QCM de 3 questions sur le texte."
+    question="Pose une question à choix multiple, avec 4 propositions."
     response = ask_question_to_pdf([{"role":"system","content":question}])
     return {"answer":response}
 

@@ -12,6 +12,7 @@ def open_file(filepath):
         return infile.read()
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
+print(os.getenv("OPENAI_API_KEY"))
 openai.organization = os.getenv("OPENAI_ORGANIZATION")
 
 
@@ -68,7 +69,6 @@ filename = os.path.join(os.path.dirname(__file__), "filename.pdf")
 document = read_pdf(filename)
 chunks = split_text(document)
 
-<<<<<<< HEAD
 def gpt3_completion(entree):
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
     reponse=client.chat.completions.create(model="gpt-3.5-turbo",messages=entree)
