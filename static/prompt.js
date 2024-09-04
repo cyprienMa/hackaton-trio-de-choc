@@ -1,6 +1,7 @@
 const promptForm = document.getElementById("prompt-form");
 const submitButton = document.getElementById("submit-button");
 const questionButton = document.getElementById("question-button");
+<<<<<<< HEAD
 const qcmButton = document.getElementById("qcm-button");
 const messagesContainer = document.getElementById("messages-container");
 
@@ -65,6 +66,7 @@ const handlePrompt = async (event) => {
 
 promptForm.addEventListener("submit", handlePrompt);
 
+<<<<<<< HEAD
 const handleQuestionClick = async (event) => {
   appendAIMessage(async () => {
     const response = await fetch("/question", {
