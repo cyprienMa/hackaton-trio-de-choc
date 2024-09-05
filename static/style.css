@@ -52,7 +52,7 @@ body {
   flex-direction: column;
   gap: 10px;
   font-family: corbel;
-  margin-bottom: 30px;
+  margin-bottom: 100px;
 }
 
 .message-container {
