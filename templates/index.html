@@ -42,6 +42,16 @@
       </button>
     </form>
 
+    <form id="upload-form" class="upload-container" enctype="multipart/form-data">
+      <label for="file-upload" class="upload-label">Téléverser un fichier PDF</label>
+
+      <input type="file" id="file-upload" name="pdf" accept="application/pdf" />
+      <label for="file-upload" class="button">chosir un fichier</label>
+
+      <button type="submit" class="button">Téléverser</button>
+    </form>
+
+
     <script src="{{ url_for('static', filename='prompt.js') }}"></script>
   </main>
 </body>

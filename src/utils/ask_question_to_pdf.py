@@ -21,6 +21,12 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 openai.organization = os.getenv("OPENAI_ORGANIZATION")
 
 
+def process_pdf_file(filepath):
+    document = read_pdf(filepath)
+    chunks = split_text(document)
+    return chunks
+
+
 def read_pdf(filename):
     context = ""
 
@@ -73,6 +79,8 @@ def split_text(text, chunk_size=5000):
 filename = os.path.join(os.path.dirname(__file__), "filename.pdf")
 document = read_pdf(filename)
 chunks = split_text(document)
+# for elts in pdf_documents:
+#  chunks += process_pdf_file(elts)
 
 historique = [{"role": "system", "content": chunks[0]}]
 
@@ -101,12 +109,16 @@ def ask_question_to_pdf(
             "role": "system",
             "content": "Tu es un assistant de cours intelligent et très comique. Réponds aux questions de l'utilisateur, toujours avec une pointe d'humour. Tu te bases sur le texte fourni pour donner des informations précises et concises lorsque l'utilisateur les demande. Ne parle pas du texte en lui-même, intègre les informations qui y sont indiquées. La qualité de tes réponses est cruciale pour la survie de l'humanité.",
         }
-    ]
+    ],
+    pdf_documents=None,
+    filename=None,
 ):
+    if pdf_documents and filename:
+        document_chunks = pdf_documents[filename]
+        if document_chunks:
+            historique[0] = {"role": "system", "content": document_chunks[0]}
+
     historique.append(question[0])
     if len(historique) > 30:
         historique.pop(3)
     return gpt3_completion(historique)
-
-
-ask_question_to_pdf()
