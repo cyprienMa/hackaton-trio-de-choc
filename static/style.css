@@ -32,10 +32,13 @@ body {
 .header {
   top: 0;
   position: fixed;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
   text-align: center;
   font-family: corbel;
   background-color: var(--main-background-color);
-  width: 40%;
+  width: var(--max-body-width);
   border-bottom: 2px solid var(--border-color);
 }
 
