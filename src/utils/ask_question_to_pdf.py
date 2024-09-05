@@ -5,6 +5,8 @@ import openai
 from openai import OpenAI
 from nltk.tokenize import sent_tokenize
 
+# from main import pdf_documents
+
 text = "Les voitures électriques offrent plusieurs avantages par rapport aux voitures à moteur thermique : 1. **Zéro émissions locales :** Les voitures électriques ne produisent pas d'émissions d'échappement locales, réduisant ainsi la pollution de l'air et les effets sur la santé. 2. **Moins de dépendance aux combustibles fossiles :** Les voitures électriques utilisent l'électricité, qui peut provenir de sources renouvelables comme le soleil et le vent, réduisant la dépendance aux combustibles fossiles.3. **Coûts de fonctionnement réduits :** Les voitures électriques ont moins de pièces mobiles et nécessitent moins d'entretien par rapport aux voitures à moteur thermique, ce qui peut réduire les coûts à long terme. 4. **Performance instantanée :** Les voitures électriques offrent un couple élevé dès le départ, ce qui signifie une accélération rapide et fluide sans la nécessité de changer de vitesses. 5. **Conduite silencieuse :** Les moteurs électriques sont beaucoup plus silencieux que les moteurs thermiques, offrant une expérience de conduite plus paisible. 6. **Amélioration de l'efficacité énergétique :** Les voitures électriques convertissent plus efficacement l'énergie électrique en mouvement par rapport aux moteurs à combustion interne. 7. **Réduction des émissions de gaz à effet de serre :** Même en tenant compte de l'émission de CO2 liée à la production d'électricité, les voitures électriques ont tendance à produire moins d'émissions de gaz à effet de serre sur leur cycle de vie par rapport aux voitures à essence. 8. **Innovation technologique :** Les voitures électriques stimulent le développement de nouvelles technologies, telles que les batteries plus performantes et les systèmes de recharge avancés. 9. **Réduction du bruit urbain :** La diminution du bruit des véhicules électriques contribue à réduire le niveau de bruit dans les zones urbaines. 10. **Subventions et incitations :** Dans de nombreux endroits, les voitures électriques bénéficient d'incitations gouvernementales, telles que des réductions fiscales ou des voies réservées. Il est important de noter que la transition vers les voitures électriques implique également des défis, tels que l'infrastructure de recharge en expansion, la gestion des matériaux des batteries et l'autonomie limitée par rapport aux voitures à essence sur de longs trajets. Cependant, les avantages en matière d'environnement et d'efficacité continuent de renforcer l'attrait des voitures électriques pour l'avenir de la mobilité."
 
 text2 = "gachenooooooot pete moi..."
@@ -18,6 +20,12 @@ def open_file(filepath):
 openai.api_key = os.getenv("OPENAI_API_KEY")
 print(os.getenv("OPENAI_API_KEY"))
 openai.organization = os.getenv("OPENAI_ORGANIZATION")
+
+
+def process_pdf_file(filepath):
+    document = read_pdf(filepath)
+    chunks = split_text(document)
+    return chunks
 
 
 def read_pdf(filename):
@@ -72,6 +80,8 @@ def split_text(text, chunk_size=5000):
 filename = os.path.join(os.path.dirname(__file__), "filename.pdf")
 document = read_pdf(filename)
 chunks = split_text(document)
+# for elts in pdf_documents:
+#  chunks += process_pdf_file(elts)
 
 
 def gpt3_completion(entree):
@@ -83,15 +93,24 @@ def gpt3_completion(entree):
 # gpt3_completion([{"role":"user","content":"recette tarte aux pommes"}])
 
 
-def ask_question_to_pdf(question=[{"role": "user", "content": "Résume ce texte"}]):
-    question.append({"role": "system", "content": chunks[0]})
-    question.append(
-        {
-            "role": "system",
-            "content": "Tu es un assistant de cours intelligent. Tu te bases sur le texte fourni pour donner des informations précises et concises. Ne parle pas du texte en lui-même, intègre les informations qui y sont indiquées. La qualité de tes réponses est cruciale pour la survie de l'humanité.",
-        }
-    )
+def ask_question_to_pdf(
+    question=[{"role": "user", "content": "Résume ce texte"}],
+    pdf_documents=None,
+    filename=None,
+):
+    if pdf_documents and filename:
+        document_chunks = pdf_documents[filename]
+        if document_chunks:
+            question.append({"role": "system", "content": document_chunks[0]})
+    else:
+        question.append({"role": "system", "content": chunks[0]})
+        question.append(
+            {
+                "role": "system",
+                "content": "Tu es un assistant de cours intelligent. Tu te bases sur le texte fourni pour donner des informations précises et concises. Ne parle pas du texte en lui-même, intègre les informations qui y sont indiquées. La qualité de tes réponses est cruciale pour la survie de l'humanité.",
+            }
+        )
     return gpt3_completion(question)
 
 
-ask_question_to_pdf()
+# ask_question_to_pdf()
