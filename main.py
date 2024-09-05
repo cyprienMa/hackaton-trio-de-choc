@@ -45,5 +45,14 @@ def qcm_reponse():
     return {"answer": response}
 
 
+from src.utils.ask_question_to_pdf import clean_historic
+
+
+@app.route("/newchat", methods=["GET"])
+def clear_history():
+    clean_historic()
+    return {}
+
+
 if __name__ == "__main__":
     app.run(debug=True)
