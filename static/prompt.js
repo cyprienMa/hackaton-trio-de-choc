@@ -10,6 +10,8 @@ const appendHumanMessage = (message) => {
   humanMessageElement.classList.add("message", "message-human");
   humanMessageElement.innerHTML = message;
   messagesContainer.appendChild(humanMessageElement);
+
+  document.documentElement.scrollTop = document.documentElement.scrollHeight;
 };
 
 const appendAIMessage = async (messagePromise) => {
@@ -26,6 +28,8 @@ const appendAIMessage = async (messagePromise) => {
   // Replace the loader with the answer
   loaderElement.classList.remove("loader");
   loaderElement.innerHTML = messageToAppend;
+
+  document.documentElement.scrollTop = document.documentElement.scrollHeight;
 };
 
 const handlePrompt = async (event) => {

@@ -30,8 +30,11 @@ body {
 }
 
 .header {
+  position: fixed;
   text-align: center;
   font-family: corbel;
+  background-color: var(--main-background-color);
+  width: 40%;
 }
 
 .header-title {
@@ -40,6 +43,7 @@ body {
 }
 
 .messages-container {
+  padding-top: 70px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -93,6 +97,7 @@ body {
   border-radius: 5px;
   background-color: var(--main-background-color);
   font-family: corbel;
+  color: var(--main-color);
 }
 
 .button:hover,

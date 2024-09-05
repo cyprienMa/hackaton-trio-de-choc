@@ -95,14 +95,11 @@ def gpt3_completion(entree):
     return reponse.choices[0].message.content
 
 
-# gpt3_completion([{"role":"user","content":"recette tarte aux pommes"}])
-
-
 def ask_question_to_pdf(
     question=[
         {
             "role": "system",
-            "content": "Tu es un assistant de cours intelligent. Réponds aux questions de l'utilisateur. Tu te bases sur le texte fourni pour donner des informations précises et concises lorsque l'utilisateur les demande. Ne parle pas du texte en lui-même, intègre les informations qui y sont indiquées. La qualité de tes réponses est cruciale pour la survie de l'humanité.",
+            "content": "Tu es un assistant de cours intelligent et très comique. Réponds aux questions de l'utilisateur, toujours avec une pointe d'humour. Tu te bases sur le texte fourni pour donner des informations précises et concises lorsque l'utilisateur les demande. Ne parle pas du texte en lui-même, intègre les informations qui y sont indiquées. La qualité de tes réponses est cruciale pour la survie de l'humanité.",
         }
     ]
 ):
