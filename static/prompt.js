@@ -4,6 +4,7 @@ const questionButton = document.getElementById("question-button");
 
 const qcmButton = document.getElementById("qcm-button");
 const messagesContainer = document.getElementById("messages-container");
+const uploadForm = document.getElementById("upload-form");
 
 const appendHumanMessage = (message) => {
   const humanMessageElement = document.createElement("div");
@@ -47,6 +48,7 @@ const handlePrompt = async (event) => {
     qcmButton.classList.remove("hidden");
     submitButton.innerHTML = "Message";
   }
+
   else if (qcmButton.dataset.question !== undefined) {
     url = "/answer";
     data.append("question", qcmButton.dataset.question);
@@ -55,6 +57,8 @@ const handlePrompt = async (event) => {
     questionButton.classList.remove("hidden");
     submitButton.innerHTML = "Message";
   }
+  const fileName = document.getElementById('file-upload').files[0]?.name || '';
+  data.append("filename", fileName);
 
   appendHumanMessage(data.get("prompt"));
 
@@ -121,6 +125,7 @@ toggleButton.addEventListener('click', () => {
   }
 });
 
+
 const newChat = document.getElementById('new-chat');
 
 function clearContent() {
@@ -145,3 +150,22 @@ window.onscroll = function () {
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+const handleUpload = async (event) => {
+  event.preventDefault();
+  const formData = new FormData(uploadForm);
+
+  await appendAIMessage(async () => {
+    const response = await fetch("/upload", {
+      method: "POST",
+      body: formData,
+    });
+    const result = await response.json();
+    return result.message || result.error;
+  });
+
+};
+
+
+uploadForm.addEventListener("submit", handleUpload);
+

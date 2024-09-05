@@ -1,7 +1,23 @@
 from flask import Flask, render_template, request
 from src.utils.ask_question_to_pdf import ask_question_to_pdf
+from src.utils.ask_question_to_pdf import process_pdf_file
+import os
 
 app = Flask(__name__)
+
+# Définir le dossier où les fichiers téléversés seront stockés
+UPLOAD_FOLDER = "pdf_docs"
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
+pdf_documents = {}
+
+# Créer le dossier 'uploads' s'il n'existe pas déjà
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
+# filename = "filename.pdf"
+# filepath = os.path.join(os.path.dirname(__file__), filename)
+# if os.path.exists(filepath):
+# pdf_documents[filename] = process_pdf_file(filepath)
 
 
 @app.route("/")
@@ -12,7 +28,12 @@ def index():
 @app.route("/prompt", methods=["POST"])
 def answer():
     question = request.form["prompt"]
-    response = ask_question_to_pdf([{"role": "user", "content": question}])
+    filename = request.form.get("filename")
+    response = ask_question_to_pdf(
+        [{"role": "user", "content": question}],
+        pdf_documents=pdf_documents,
+        filename=filename,
+    )
     return {"answer": response}
 
 
@@ -28,6 +49,27 @@ def qcm_question():
     question = "Pose une question à choix multiple, avec 4 propositions."
     response = ask_question_to_pdf([{"role": "system", "content": question}])
     return {"answer": response}
+
+
+@app.route("/upload", methods=["POST"])
+def upload_pdf():
+    if "pdf" not in request.files:
+        return {"error": "Aucun fichier PDF fourni"}, 400
+
+    file = request.files["pdf"]
+
+    if file.filename == "":
+        return {"error": "Aucun fichier sélectionné"}, 400
+
+    # sauvergarde du fichier avec un nom sécurisé
+    if file and file.filename.endswith(".pdf"):
+        filepath = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
+        file.save(filepath)
+
+        pdf_documents[file.filename] = process_pdf_file(filepath)
+
+        return {"message": "Fichier PDF téléversé et traité avec succès."}, 200
+    return {"error": "Le fichier n'est pas un PDF valide."}, 400
 
 
 @app.route("/answer", methods=["POST"])
