@@ -17,7 +17,7 @@ def open_file(filepath):
 
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
-print(os.getenv("OPENAI_API_KEY"))
+# print(os.getenv("OPENAI_API_KEY"))
 openai.organization = os.getenv("OPENAI_ORGANIZATION")
 
 
@@ -74,13 +74,13 @@ filename = os.path.join(os.path.dirname(__file__), "filename.pdf")
 document = read_pdf(filename)
 chunks = split_text(document)
 
-historique = [
-    {"role": "system", "content": chunks[0]},
-    {
-        "role": "system",
-        "content": "Tu es un assistant de cours intelligent. Tu te bases sur le texte fourni pour donner des informations précises et concises lorsque l'utilisateur les demande. Ne parle pas du texte en lui-même, intègre les informations qui y sont indiquées. La qualité de tes réponses est cruciale pour la survie de l'humanité.",
-    },
-]
+historique = [{"role": "system", "content": chunks[0]}]
+
+
+def clean_historic():
+    n = len(historique)
+    for i in range(n - 3):
+        historique.pop()
 
 
 def gpt3_completion(entree):
@@ -89,18 +89,26 @@ def gpt3_completion(entree):
     historique.append(
         {"role": "assistant", "content": reponse.choices[0].message.content}
     )
-    if len(historique) > 20:
-        historique.pop(2)
+    if len(historique) > 30:
+        historique.pop(3)
+    # print(historique)
     return reponse.choices[0].message.content
 
 
 # gpt3_completion([{"role":"user","content":"recette tarte aux pommes"}])
 
 
-def ask_question_to_pdf(question=[{"role": "user", "content": "Résume ce texte"}]):
+def ask_question_to_pdf(
+    question=[
+        {
+            "role": "system",
+            "content": "Tu es un assistant de cours intelligent. Réponds aux questions de l'utilisateur. Tu te bases sur le texte fourni pour donner des informations précises et concises lorsque l'utilisateur les demande. Ne parle pas du texte en lui-même, intègre les informations qui y sont indiquées. La qualité de tes réponses est cruciale pour la survie de l'humanité.",
+        }
+    ]
+):
     historique.append(question[0])
-    if len(historique) > 20:
-        historique.pop(2)
+    if len(historique) > 30:
+        historique.pop(3)
     return gpt3_completion(historique)
 
 

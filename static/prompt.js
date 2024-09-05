@@ -117,5 +117,12 @@ toggleButton.addEventListener('click', () => {
   }
 });
 
+const newChat = document.getElementById('new-chat');
+
+function clearContent() {
+  document.getElementById('messages-container').innerHTML = '';
+  fetch("/newchat", { method: "GET" });
+}
+
 questionButton.addEventListener("click", handleQuestionClick);
 qcmButton.addEventListener("click", handleQCMClick);
