@@ -55,12 +55,14 @@ body {
   margin-bottom: 100px;
 }
 
-.message-container {
-  padding-top: 60px;
+.messages-container {
   display: flex;
   flex-direction: column;
   gap: 10px;
   font-family: corbel;
+  margin-bottom: 30px;
+  padding-bottom: 60px;
+  /* Ajuster la valeur pour correspondre à la hauteur du upload-container */
 }
 
 .message {
