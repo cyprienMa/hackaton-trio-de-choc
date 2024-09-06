@@ -8,6 +8,13 @@
   --loader-bullet-size: 6px;
 }
 
+body.background-active {
+  background-image: url('OIP.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -35,6 +42,7 @@ body {
   margin: 0 auto;
   left: 0;
   right: 0;
+  height: 125px;
   text-align: center;
   font-family: corbel;
   background-color: var(--main-background-color);
@@ -47,12 +55,11 @@ body {
   font-family: corbel;
 }
 
-.messages-container {
+.message-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
   font-family: corbel;
-  margin-bottom: 100px;
+  margin-top: 60px;
 }
 
 .messages-container {
@@ -60,9 +67,7 @@ body {
   flex-direction: column;
   gap: 10px;
   font-family: corbel;
-  margin-bottom: 30px;
-  padding-bottom: 60px;
-  /* Ajuster la valeur pour correspondre à la hauteur du upload-container */
+  margin-bottom: 100px;
 }
 
 .message {
@@ -142,7 +147,6 @@ body {
   display: none;
 }
 
-/* Loader code taken from https://loading.io/css/ */
 .loader {
   display: inline-block;
   position: relative;

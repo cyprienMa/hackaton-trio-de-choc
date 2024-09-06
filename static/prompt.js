@@ -116,7 +116,17 @@ toggleButton.addEventListener('click', () => {
     document.documentElement.style.setProperty('--main-color', 'white');
     document.documentElement.style.setProperty('--secondary-color', 'steelblue');
     couleur = 1;
-  } else {
+  }
+  else if (couleur == 1) {
+    document.documentElement.style.setProperty('--main-background-color', 'rgba(255, 255, 255, 0.3)');
+    document.documentElement.style.setProperty('--main-color', 'black');
+    document.documentElement.style.setProperty('--secondary-color', 'darkseagreen');
+    document.documentElement.style.setProperty('--body-background-color', 'gainsboro');
+    document.body.classList.toggle('background-active');
+    couleur = 2;
+  }
+  else {
+    document.body.classList.toggle('background-active');
     document.documentElement.style.setProperty('--main-background-color', 'white');
     document.documentElement.style.setProperty('--body-background-color', 'gainsboro');
     document.documentElement.style.setProperty('--main-color', 'black');
