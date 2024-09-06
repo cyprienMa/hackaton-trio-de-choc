@@ -23,12 +23,23 @@ const appendAIMessage = async (messagePromise) => {
     "<div class='loader'><div></div><div></div><div></div>";
   messagesContainer.appendChild(loaderElement);
 
+
   // Await the answer from the server
   const messageToAppend = await messagePromise();
 
   // Replace the loader with the answer
   loaderElement.classList.remove("loader");
   loaderElement.innerHTML = messageToAppend;
+  var audio = document.getElementById('chevreau');
+  if (audio) {
+    audio.play().then(() => {
+      console.log("Le son joue correctement.");
+    }).catch(error => {
+      console.error("Erreur lors de la lecture du son : ", error);
+    });
+  } else {
+    console.error("Élément audio non trouvé.");
+  }
 
   document.documentElement.scrollTop = document.documentElement.scrollHeight;
 };
@@ -112,15 +123,27 @@ let couleur = 0;
 toggleButton.addEventListener('click', () => {
   if (couleur == 0) {
     document.documentElement.style.setProperty('--main-background-color', 'grey');
-    document.documentElement.style.setProperty('--body-background-color', 'black');
+    document.documentElement.style.setProperty('--main-background-color_', 'grey');
+    document.documentElement.style.setProperty('--body-background-color', 'rgba(0,0,0,0.8');
     document.documentElement.style.setProperty('--main-color', 'white');
     document.documentElement.style.setProperty('--secondary-color', 'steelblue');
     couleur = 1;
   }
   else if (couleur == 1) {
+    var audio = document.getElementById('chevre');
+    if (audio) {
+      audio.play().then(() => {
+        console.log("Le son joue correctement.");
+      }).catch(error => {
+        console.error("Erreur lors de la lecture du son : ", error);
+      });
+    } else {
+      console.error("Élément audio non trouvé.");
+    }
     document.documentElement.style.setProperty('--main-background-color', 'rgba(255, 255, 255, 0.3)');
+    document.documentElement.style.setProperty('--main-background-color_', 'rgba(255,255,255,0.8');
     document.documentElement.style.setProperty('--main-color', 'black');
-    document.documentElement.style.setProperty('--secondary-color', 'darkseagreen');
+    document.documentElement.style.setProperty('--secondary-color', 'rgba(143, 188, 143, 0.8)');
     document.documentElement.style.setProperty('--body-background-color', 'gainsboro');
     document.body.classList.toggle('background-active');
     couleur = 2;
@@ -128,6 +151,7 @@ toggleButton.addEventListener('click', () => {
   else {
     document.body.classList.toggle('background-active');
     document.documentElement.style.setProperty('--main-background-color', 'white');
+    document.documentElement.style.setProperty('--main-background-color_', 'white');
     document.documentElement.style.setProperty('--body-background-color', 'gainsboro');
     document.documentElement.style.setProperty('--main-color', 'black');
     document.documentElement.style.setProperty('--secondary-color', 'paleturquoise');

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_from_directory
 from src.utils.ask_question_to_pdf import ask_question_to_pdf
 from src.utils.ask_question_to_pdf import process_pdf_file
 import os
@@ -49,6 +49,11 @@ def qcm_question():
     question = "Pose une question à choix multiple, avec 4 propositions."
     response = ask_question_to_pdf([{"role": "system", "content": question}])
     return {"answer": response}
+
+
+@app.route("/<path:filename>")
+def serve_static(filename):
+    return send_from_directory("static", filename)
 
 
 @app.route("/upload", methods=["POST"])
