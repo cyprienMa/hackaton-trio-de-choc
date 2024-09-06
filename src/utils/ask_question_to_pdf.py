@@ -82,12 +82,18 @@ chunks = split_text(document)
 # for elts in pdf_documents:
 #  chunks += process_pdf_file(elts)
 
-historique = [{"role": "system", "content": chunks[0]}]
+historique = [
+    {"role": "system", "content": chunks[0]},
+    {
+        "role": "system",
+        "content": "Tu es un assistant de cours intelligent et très comique. Réponds aux questions de l'utilisateur, toujours avec une pointe d'humour. Tu te bases sur le texte fourni pour donner des informations précises et concises lorsque l'utilisateur les demande. Ne parle pas du texte en lui-même, intègre les informations qui y sont indiquées. La qualité de tes réponses est cruciale pour la survie de l'humanité.",
+    },
+]
 
 
 def clean_historic():
     n = len(historique)
-    for i in range(n - 3):
+    for i in range(n - 2):
         historique.pop()
 
 
@@ -98,18 +104,13 @@ def gpt3_completion(entree):
         {"role": "assistant", "content": reponse.choices[0].message.content}
     )
     if len(historique) > 30:
-        historique.pop(3)
-    # print(historique)
+        historique.pop(2)
+    print(historique)
     return reponse.choices[0].message.content
 
 
 def ask_question_to_pdf(
-    question=[
-        {
-            "role": "system",
-            "content": "Tu es un assistant de cours intelligent et très comique. Réponds aux questions de l'utilisateur, toujours avec une pointe d'humour. Tu te bases sur le texte fourni pour donner des informations précises et concises lorsque l'utilisateur les demande. Ne parle pas du texte en lui-même, intègre les informations qui y sont indiquées. La qualité de tes réponses est cruciale pour la survie de l'humanité.",
-        }
-    ],
+    question,
     pdf_documents=None,
     filename=None,
 ):
@@ -120,5 +121,5 @@ def ask_question_to_pdf(
 
     historique.append(question[0])
     if len(historique) > 30:
-        historique.pop(3)
+        historique.pop(2)
     return gpt3_completion(historique)
