@@ -106,7 +106,6 @@ def gpt3_completion(entree):
     )
     if len(historique) > 30:
         historique.pop(2)
-    #print(historique)
     return reponse.choices[0].message.content
 
 
