@@ -6,12 +6,13 @@ const qcmButton = document.getElementById("qcm-button");
 const messagesContainer = document.getElementById("messages-container");
 const uploadForm = document.getElementById("upload-form");
 
+let couleur = 0;
+
 const appendHumanMessage = (message) => {
   const humanMessageElement = document.createElement("div");
   humanMessageElement.classList.add("message", "message-human");
   humanMessageElement.innerHTML = message;
   messagesContainer.appendChild(humanMessageElement);
-
   document.documentElement.scrollTop = document.documentElement.scrollHeight;
 };
 
@@ -30,9 +31,20 @@ const appendAIMessage = async (messagePromise) => {
   // Replace the loader with the answer
   loaderElement.classList.remove("loader");
   loaderElement.innerHTML = messageToAppend;
-  var audio = document.getElementById('chevreau');
-  if (audio) {
-    audio.play().then(() => {
+  var audio1 = document.getElementById('chevreau');
+
+  if (audio1 && couleur == 2) {
+    audio1.play().then(() => {
+      console.log("Le son joue correctement.");
+    }).catch(error => {
+      console.error("Erreur lors de la lecture du son : ", error);
+    });
+  } else {
+    console.error("Élément audio non trouvé.");
+  }
+  var audio2 = document.getElementById('humain');
+  if (audio2 && couleur != 2) {
+    audio2.play().then(() => {
       console.log("Le son joue correctement.");
     }).catch(error => {
       console.error("Erreur lors de la lecture du son : ", error);
@@ -119,7 +131,7 @@ const handleQCMClick = async (event) => {
 };
 
 const toggleButton = document.getElementById('theme-toggle');
-let couleur = 0;
+
 toggleButton.addEventListener('click', () => {
   if (couleur == 0) {
     document.documentElement.style.setProperty('--main-background-color', 'grey');
