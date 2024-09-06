@@ -79,6 +79,7 @@ body {
   position: fixed;
   bottom: 0px;
   left: 50%;
+  height: 50px;
   transform: translateX(-50%);
   width: var(--max-body-width);
   display: flex;
@@ -91,10 +92,11 @@ body {
 
 .upload-container {
   position: fixed;
-  bottom: 60px;
+  bottom: 50px;
   left: 50%;
   transform: translateX(-50%);
   width: var(--max-body-width);
+  height: 40px;
   display: flex;
   align-items: center;
   gap: 10px;

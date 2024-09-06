@@ -95,6 +95,7 @@ def clean_historic():
     n = len(historique)
     for i in range(n - 2):
         historique.pop()
+    historique[0] = {"role": "system", "content": chunks[0]}
 
 
 def gpt3_completion(entree):
